@@ -157,10 +157,13 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     sudo ip netns delete ns1
     ```
 
-## 設製成執行檔（因為虛擬路由、子網每次關機會被刪除）
+## 設製成執行檔
+- 因為虛擬路由、子網每次關機會被刪除  
+- 建立 setup_ns1.sh 並開啟
     ```bash
     nano setup_ns1.sh
     ```
+
     放入
     ```
     #!/bin/bash
@@ -187,6 +190,7 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     ```bash
     chmod +x setup_ns1.sh
     ```
+    
 - 執行（每次開機直接執行這個，建立所有所需模擬）
     ```bash
     sudo ./setup_ns1.sh
