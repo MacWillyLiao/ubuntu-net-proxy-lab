@@ -12,13 +12,18 @@ Ubuntu 22.04.5
 ```
 veth (virtual ethernet interface) 虛擬網卡介面
 ns (network namespace) 獨立的網路堆疊環境
+
 e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 ns0 裡，讓 ns0 這個「虛擬電腦」有一張網卡使用
 ```
 家用路由子網網域：192.168.1.0/24  
+
 家用路由下 Ubuntu IP：192.168.1.130（實體網卡 enp0s5）  
+
 模擬路由：10.0.0.1（veth0；ns0）  
+
 模擬路由子網網域：10.0.0.0/24  
-模擬子網網域下的某個用戶 IP：10.0.0.2（veth1；ns1） 
+
+模擬子網網域下的某個用戶 IP：10.0.0.2（veth1；ns1）  
 
 封包路徑：  
 用戶端（ns1, 10.0.0.2）-> veth1 -> 模擬路由（veth0, 10.0.0.1） -> Tinyproxy（10.0.0.1:8888）-> NAT（MASQUERADE）-> Ubuntu（enp0s5, 192.168.1.141）-> 家用路由（192.168.1.0/24）-> NAT -> 公網（WAN）
@@ -120,7 +125,7 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     ```bash
     sudo nano /etc/tinyproxy/filter
     ```
-    放入  
+    寫入  
     ```
     www.cycu.edu.tw  
     example.com  
@@ -163,8 +168,7 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     ```bash
     nano setup_ns1.sh
     ```
-
-    放入
+    寫入
     ```
     #!/bin/bash
 
