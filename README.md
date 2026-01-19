@@ -28,6 +28,8 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
 封包路徑：  
 用戶端（ns1, 10.0.0.2）-> veth1 -> 模擬路由（veth0, 10.0.0.1） -> Tinyproxy（10.0.0.1:8888）-> NAT（MASQUERADE）-> Ubuntu（enp0s5, 192.168.1.141）-> 家用路由（192.168.1.0/24）-> NAT -> 公網（WAN）
 
+note：模擬路由（veth0, 10.0.0.1）就是在模擬公司的總路由器。
+
 ## 設置指令
 - 建 namespace + veth  
     ```bash
