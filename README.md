@@ -20,7 +20,8 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
 模擬路由子網網域：10.0.0.0/24  
 模擬子網網域下的某個用戶 IP：10.0.0.2（veth1；ns1） 
 
-note封包路徑：用戶端（ns1, 10.0.0.2）-> veth1 -> 模擬路由（veth0, 10.0.0.1） -> Tinyproxy（10.0.0.1:8888）-> NAT（MASQUERADE）-> Ubuntu（enp0s5, 192.168.1.141）-> 家用路由（192.168.1.0/24）-> NAT -> 公網（WAN）
+封包路徑：  
+用戶端（ns1, 10.0.0.2）-> veth1 -> 模擬路由（veth0, 10.0.0.1） -> Tinyproxy（10.0.0.1:8888）-> NAT（MASQUERADE）-> Ubuntu（enp0s5, 192.168.1.141）-> 家用路由（192.168.1.0/24）-> NAT -> 公網（WAN）
 
 ## 設置指令
 - 建 namespace + veth  
@@ -82,32 +83,32 @@ note封包路徑：用戶端（ns1, 10.0.0.2）-> veth1 -> 模擬路由（veth0,
     sudo systemctl restart tinyproxy（重啟）
     sudo systemctl status tinyproxy（查看狀態）
     ```
-- 處理 tinyproxy.conf 檔，把註解拿掉、檢查或是修改內容（依序往下找相對應區塊）
+- 開啟 tinyproxy.conf 檔，處理其內容，把註解拿掉、檢查或是修改內容（依序往下找相對應區塊）
     ```bash
     sudo nano /etc/tinyproxy/tinyproxy.conf
     ```
     - Port 區塊  
     Port 8888（預設，確認是 8888）
 
-    - Listen  
+    - Listen 區塊   
     Listen 10.0.0.1（修改）
 
-    - LogFile  
+    - LogFile 區塊  
     LogFile "/var/log/tinyproxy/tinyproxy.log"（確認）
 
-    - Syslog  
+    - Syslog 區塊  
     Syslog On（確認）
 
-    - LogLevel  
+    - LogLevel 區塊  
     LogLevel Connect（修改）
 
-    - Allow  
+    - Allow 區塊  
     Allow 10.0.0.0/8（拿掉註解）
 
-    - Filter
+    - Filter 區塊  
     Filter "/etc/tinyproxy/filter"（拿掉註解）
 
-    - FilterDefaultDeny
+    - FilterDefaultDeny 區塊  
     FilterDefaultDeny Yes（確認）
 
 - 修改完 tinyproxy.conf 重啟
