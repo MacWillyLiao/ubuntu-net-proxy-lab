@@ -157,7 +157,7 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     sudo ip netns delete ns1
     ```
 
-- 設製成執行檔（因為虛擬路由、子網每次關機會被刪除）
+## 設製成執行檔（因為虛擬路由、子網每次關機會被刪除）
     ```bash
     nano setup_ns1.sh
     ```
