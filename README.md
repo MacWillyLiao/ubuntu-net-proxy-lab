@@ -195,4 +195,4 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     ```bash
     sudo ./setup_ns1.sh
     ```
-    p.s. 記得 Tinyproxy 要先開
+    p.s. 記得 tinyproxy 要先開
