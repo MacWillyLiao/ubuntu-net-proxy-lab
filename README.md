@@ -54,7 +54,7 @@ e.g. veth0 是「網卡」，ns0 是「網路空間」，可以把 veth0 接到 
     sudo ip netns exec ns1 ip route add default via 10.0.0.1
     ```
 
-- 設置 NAT
+- 設置 NAT，用的是 MASQUERADE
     ```bash
     sudo sysctl -w net.ipv4.ip_forward=1
     sudo iptables -t nat -A POSTROUTING -o enp0s5 -j MASQUERADE
