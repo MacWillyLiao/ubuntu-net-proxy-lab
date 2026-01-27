@@ -42,7 +42,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
   <img src="/images/fig4.png" alt="示意圖" width="700">
 
-【註】只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
+【註】proxy 只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
 - (1) 在右邊終端機執行指令 (**測試網**)：
     ```bash
