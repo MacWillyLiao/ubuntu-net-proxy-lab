@@ -23,12 +23,12 @@ Implementation of a virtual router and proxy on Ubuntu to simulate a private com
     ```
     <img src="/images/fig3.png" alt="示意圖" width="700">
 
-## 實際運行狀況（Demo）
-即時查看 tinyproxy 服務（Proxy）的運行日誌，執行在左上終端機中，指令：
+## 實際運行狀況 (Demo)
+即時查看 tinyproxy 服務 (Proxy) 的運行日誌，執行在左上終端機中，指令：
 ```bash
 sudo journalctl –u tinyproxy –f
 ```
-即時查看 MASQUERADE（NET）運作，執行在左下終端機中，指令：
+即時查看 MASQUERADE (NET) 運作，執行在左下終端機中，指令：
 ```bash
 watch –n 1 sudo iptables –t nat –L –n –v
 ```
@@ -36,7 +36,7 @@ watch –n 1 sudo iptables –t nat –L –n –v
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
-【註】讓 ns1 的 client（10.0.0.2）發送一個 HTTP 請求，先送到 tinyproxy（10.0.0.1:8888），再由 tinyproxy 代替它去存取 example.com。
+【註】讓 ns1 的 client (10.0.0.2) 發送一個 HTTP 請求，先送到 tinyproxy(10.0.0.1:8888)，再由 tinyproxy 代替它去存取 example.com。
 
 - 上述三個終端機視窗設置如下圖：
 
@@ -48,7 +48,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
     ```
-    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本（上圖）的 4 增加到了 7，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本 (上圖) 的 4 增加到了 7，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
 
     <img src="/images/fig5.png" alt="示意圖" width="700">
 
@@ -56,7 +56,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.cycu.edu.tw
     ```
-    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本（上圖）的 7 增加到了 10，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本 (上圖) 的 7 增加到了 10，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
 
     <img src="/images/fig6.png" alt="示意圖" width="700">
 
@@ -64,7 +64,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://google.com
     ```
-    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
+    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本 (上圖) 的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
 
     <img src="/images/fig7.png" alt="示意圖" width="700">
 
@@ -72,7 +72,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.youtube.com
     ```
-    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
+    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本 (上圖) 的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
 
     <img src="/images/fig8.png" alt="示意圖" width="700">
 
