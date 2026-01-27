@@ -15,13 +15,13 @@ Implementation of a virtual router and proxy on Ubuntu to simulate a private com
     ```bash
     sudo ip netns exec ns1 ip a
     ```
-<img src="/images/fig2.png" alt="示意圖" width="700">
+    <img src="/images/fig2.png" alt="示意圖" width="700">
 
 - 查看 ns1 的路由
     ```bash
     sudo ip netns exec ns1 ip route
     ```
-<img src="/images/fig3.png" alt="示意圖" width="700">
+    <img src="/images/fig3.png" alt="示意圖" width="700">
 
 ## 實際運行狀況（Demo）
 即時查看 tinyproxy 服務（Proxy）的運行日誌，執行在左上終端機中，指令：
