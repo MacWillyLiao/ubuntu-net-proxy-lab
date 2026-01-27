@@ -6,21 +6,21 @@ Implementation of a virtual router and proxy on Ubuntu to simulate a private com
 
 ## 所建的架構
 - 目前網路架構
-```bash
-ip a
-```
+    ```bash
+    ip a
+    ```
 <img src="/images/fig1.png" alt="示意圖" width="700">
 
 - 在 network namespace 中的 ns1 執行 `ip a` 這個指令，查看他的網路介面和 IP 配置，這是模擬 veth0 路由下子網中的一台用戶端 ns1。
-```bash
-sudo ip netns exec ns1 ip a
-```
+    ```bash
+    sudo ip netns exec ns1 ip a
+    ```
 <img src="/images/fig2.png" alt="示意圖" width="700">
 
 - 查看 ns1 的路由
-```bash
-sudo ip netns exec ns1 ip route
-```
+    ```bash
+    sudo ip netns exec ns1 ip route
+    ```
 <img src="/images/fig3.png" alt="示意圖" width="700">
 
 ## 實際運行狀況（Demo）
@@ -36,32 +36,35 @@ watch –n 1 sudo iptables –t nat –L –n –v
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
-讓 ns1 的 client（10.0.0.2）發送一個 HTTP 請求，先送到 tinyproxy（10.0.0.1:8888），再由 tinyproxy 代替它去存取 example.com
+【註】讓 ns1 的 client（10.0.0.2）發送一個 HTTP 請求，先送到 tinyproxy（10.0.0.1:8888），再由 tinyproxy 代替它去存取 example.com。
 
 上述三個終端機視窗設置如下圖：
+
 <img src="/images/fig4.png" alt="示意圖" width="700">
 
-【註】只有放行測試網（http://example.com）和校網（https://www.cycu.edu.tw）
+【註】只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
-(test1) 在右邊終端機執行指令 (測試網)：
+**test1**: 在右邊終端機執行指令 (測試網)：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
 下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下
 終端機的 pkts 從原本（上圖）的 4 增加到了 7，表示 NAT 有運作，右邊終端機
 有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+
 <img src="/images/fig5.png" alt="示意圖" width="700">
 
-(test2) 在右邊終端機執行指令 (中原校網)：
+**test2**: 在右邊終端機執行指令 (中原校網)：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.cycu.edu.tw
 ```
 下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下
 終端機的 pkts 從原本（上圖）的 7 增加到了 10，表示 NAT 有運作，右邊終端
 機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+
 <img src="/images/fig6.png" alt="示意圖" width="700">
 
-(test3) 右邊終端機執行指令 (Google)：
+**test3**: 右邊終端機執行指令 (Google)：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://google.com
 ```
@@ -69,9 +72,10 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https:/
 濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表
 示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，
 回傳 403（拒絕請求）。
+
 <img src="/images/fig7.png" alt="示意圖" width="700">
 
-(test4) 右邊終端機執行指令 (YouTube)：
+**test4**: 右邊終端機執行指令 (YouTube)：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.youtube.com
 ```
@@ -79,6 +83,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https:/
 濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表
 示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，
 回傳 403（拒絕請求）。
+
 <img src="/images/fig8.png" alt="示意圖" width="700">
 
 ## 環境
