@@ -9,7 +9,7 @@ Implementation of a virtual router and proxy on Ubuntu to simulate a private com
 ```bash
 ip a
 ```
-<img src="/images/fig1.png" alt="示意圖" width="500">
+<img src="/images/fig1.png" alt="示意圖" width="800">
 
 - 在 network namespace 中的 ns1 執行「ip a」這個指令，查看他的網路介面和 IP 配置，這是模擬 veth0 路由下子網中的一台用戶端 ns1。
 ```bash
