@@ -38,9 +38,9 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 ```
 【註】讓 ns1 的 client（10.0.0.2）發送一個 HTTP 請求，先送到 tinyproxy（10.0.0.1:8888），再由 tinyproxy 代替它去存取 example.com。
 
-上述三個終端機視窗設置如下圖：
+- 上述三個終端機視窗設置如下圖：
 
-<img src="/images/fig4.png" alt="示意圖" width="700">
+  <img src="/images/fig4.png" alt="示意圖" width="700">
 
 【註】只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
