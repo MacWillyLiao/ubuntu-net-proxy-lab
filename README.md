@@ -36,7 +36,7 @@ watch –n 1 sudo iptables –t nat –L –n –v
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
-【註】讓 ns1 的 client (10.0.0.2) 發送一個 HTTP 請求，先送到 tinyproxy(10.0.0.1:8888)，再由 tinyproxy 代替它去存取 example.com。
+【註】讓 ns1 的 client (10.0.0.2) 發送一個 HTTP 請求，先送到 tinyproxy (10.0.0.1:8888)，再由 tinyproxy 代替它去存取 example.com。
 
 - 上述三個終端機視窗設置如下圖：
 
