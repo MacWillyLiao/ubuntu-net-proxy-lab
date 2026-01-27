@@ -36,7 +36,7 @@ watch –n 1 sudo iptables –t nat –L –n –v
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
-【註】讓 ns1 的 client (10.0.0.2) 發送一個 HTTP 請求，先送到 tinyproxy (10.0.0.1:8888)，再由 tinyproxy 代替它去存取 example.com。
+**指令解釋**：讓 ns1 的 client (10.0.0.2) 發送一個 HTTP 請求，先送到 tinyproxy (10.0.0.1:8888)，再由 tinyproxy 代替它去存取 example.com。
 
 - 上述三個終端機視窗設置如下圖：
 
@@ -44,7 +44,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
 【註】proxy 只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
-- (1) 在右邊終端機執行指令 (**測試網**)：
+- (1) 在右邊終端機執行指令 (**連到測試網**)：
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
     ```
@@ -52,7 +52,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
     <img src="/images/fig5.png" alt="示意圖" width="700">
 
-- (2) 在右邊終端機執行指令 (**中原校網**)：
+- (2) 在右邊終端機執行指令 (**連到校網**)：
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.cycu.edu.tw
     ```
@@ -60,7 +60,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
     <img src="/images/fig6.png" alt="示意圖" width="700">
 
-- (3) 右邊終端機執行指令 (**Google**)：
+- (3) 右邊終端機執行指令 (**連到 Google**)：
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://google.com
     ```
@@ -68,7 +68,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
     <img src="/images/fig7.png" alt="示意圖" width="700">
 
-- (4) 右邊終端機執行指令 (**YouTube**)：
+- (4) 右邊終端機執行指令 (**連到 YouTube**)：
     ```bash
     sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.youtube.com
     ```
