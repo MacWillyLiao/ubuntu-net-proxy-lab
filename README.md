@@ -32,7 +32,7 @@ sudo journalctl –u tinyproxy –f
 ```bash
 watch –n 1 sudo iptables –t nat –L –n –v
 ```
-右邊終端機即將執行的指令，假如是：
+右邊終端機即將執行的指令，如：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
