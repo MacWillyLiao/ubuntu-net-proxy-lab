@@ -44,7 +44,7 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
 【註】只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
-**test1**: 在右邊終端機執行指令 (測試網)：
+**[test1]** 在右邊終端機執行指令 (測試網)：
 ```bash
 sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
 ```
