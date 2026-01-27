@@ -44,47 +44,37 @@ sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://
 
 【註】只有放行測試網 `http://example.com` 和校網 `https://www.cycu.edu.tw`
 
-**[test1]** 在右邊終端機執行指令 (測試網)：
-```bash
-sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
-```
-下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下
-終端機的 pkts 從原本（上圖）的 4 增加到了 7，表示 NAT 有運作，右邊終端機
-有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+- (1) 在右邊終端機執行指令 (**測試網**)：
+    ```bash
+    sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 http://example.com
+    ```
+    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本（上圖）的 4 增加到了 7，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
 
-<img src="/images/fig5.png" alt="示意圖" width="700">
+    <img src="/images/fig5.png" alt="示意圖" width="700">
 
-**test2**: 在右邊終端機執行指令 (中原校網)：
-```bash
-sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.cycu.edu.tw
-```
-下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下
-終端機的 pkts 從原本（上圖）的 7 增加到了 10，表示 NAT 有運作，右邊終端
-機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
+- (2) 在右邊終端機執行指令 (**中原校網**)：
+    ```bash
+    sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.cycu.edu.tw
+    ```
+    下圖為結果，可以看到左上終端機 Established connection (成功建立)，左下終端機的 pkts 從原本（上圖）的 7 增加到了 10，表示 NAT 有運作，右邊終端機有顯示回傳的結果，網頁 HTML 內容，表示有成功連上。
 
-<img src="/images/fig6.png" alt="示意圖" width="700">
+    <img src="/images/fig6.png" alt="示意圖" width="700">
 
-**test3**: 右邊終端機執行指令 (Google)：
-```bash
-sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://google.com
-```
-下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過
-濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表
-示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，
-回傳 403（拒絕請求）。
+- (3) 右邊終端機執行指令 (**Google**)：
+    ```bash
+    sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://google.com
+    ```
+    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
 
-<img src="/images/fig7.png" alt="示意圖" width="700">
+    <img src="/images/fig7.png" alt="示意圖" width="700">
 
-**test4**: 右邊終端機執行指令 (YouTube)：
-```bash
-sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.youtube.com
-```
-下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過
-濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表
-示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，
-回傳 403（拒絕請求）。
+- (4) 右邊終端機執行指令 (**YouTube**)：
+    ```bash
+    sudo ip netns exec ns1 curl --interface 10.0.0.2 -x http://10.0.0.1:8888 https://www.youtube.com
+    ```
+    下圖為結果，可以看到左上終端機 refused on filtered domain (拒絕存取已過濾的域名)，左下終端機的 pkts 不變，從原本（上圖）的 10 沒變還是 10，表示 NAT 沒有運作，右邊終端機有顯示 proxy 回傳的結果，被 proxy 擋下來了，回傳 403 (拒絕請求)。
 
-<img src="/images/fig8.png" alt="示意圖" width="700">
+    <img src="/images/fig8.png" alt="示意圖" width="700">
 
 ## 環境
 Ubuntu 22.04.5
